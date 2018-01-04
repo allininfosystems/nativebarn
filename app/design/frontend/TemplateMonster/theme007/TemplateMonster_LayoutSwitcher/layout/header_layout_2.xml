@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <!-- top header -->
+        <referenceContainer name="rd.navbar" htmlClass="layout_2">
+            <block type="cms/block" class="Magento\Cms\Block\Block" name="header_info" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">header_info</argument>
+                </arguments>
+            </block>
+            <container name="header.bottom.wrap" htmlClass="header-bottom-wrap" htmlTag="div" after="-" />
+        </referenceContainer>
+
+        <move element="header" destination="panel.container.wrap" before="-"/> 
+        <move element="header.switchers" destination="header.left.wrapper" after="-"/>
+        <move element="rd.navbar.collapse" destination="panel.container.wrap" after="-"/> <!-- Top links -->
+        <move element="minicart" destination="header.right.wrapper" after="top.search"/>
+        <!-- <referenceContainer name="header.panel.grid-container">
+            
+    </referenceContainer> -->
+    <!-- end -->
+
+
+    <!-- center header -->
+    <move element="header.panel" destination="rd.navbar" after="header_info"/>
+    <referenceContainer name="header-wrapper.grid-container">
+        <container name="header.left.wrapper" htmlClass="header-left-wrapper" htmlTag="div" before="logo.wrapper" >
+
+            <block type="cms/block" class="Magento\Cms\Block\Block" name="header_phone_number" after="-">
+            <arguments>
+                <argument name="block_id" xsi:type="string">header_phone_number</argument>
+            </arguments>
+        </block>
+
+        </container>
+        <container name="logo.wrapper" htmlClass="logo-wrapper" htmlTag="div" before="-" />
+
+
+
+        <container name="header.right.wrapper" htmlClass="header-right-wrapper" htmlTag="div" after="logo.wrapper">
+            <container name="panel.container.wrap" htmlClass="panel-container-wrap" htmlTag="div"/>
+        </container>
+    </referenceContainer>
+    <move element="logo"  destination="logo.wrapper"/>
+    <move element="panel.container.wrap"  destination="header.right.wrapper" after="minicart"/>
+
+    <move element="catalog.topnav" destination="header.bottom.wrap"/>
+    <move element="top.search" destination="header.right.wrapper" after="-" />
+    <!-- <move element="header.bottom.wrap" destination="header-wrapper.grid-container" after="-"/> -->
+
+
+         <!-- <referenceBlock name="catalog.topnav">
+            <block class="Magento\Theme\Block\Html\Header" name="header2" as="header2" before="-"> 
+                 <arguments> 
+                     <argument name="show_part" xsi:type="string">welcome</argument> 
+                 </arguments>
+            </block> 
+        </referenceBlock> --> 
+        <!-- end -->
+
+        <referenceContainer name="rd.navbar" htmlClass="layout_2">
+            <block type="cms/block" class="Magento\Cms\Block\Block" name="header_info" before="-">
+                <arguments>
+                    <argument name="block_id" xsi:type="string">header_info</argument>
+                </arguments>
+            </block>
+            <container name="header.bottom.wrap" htmlClass="header-bottom-wrap" htmlTag="div" after="-" />
+        </referenceContainer>
+
+        <!-- <referenceBlock name="header.switchers" remove="true"/> -->
+        <!-- <referenceBlock name="store.settings.currency" remove="true"/> -->
+        <referenceBlock name="header" remove="true"/> 
+        <referenceBlock name="wish-list-link" remove="true" />
+        <referenceBlock name="catalog.compare.link" remove="true" />
+        <!-- <move element="register-link" destination="header.links" after="authorization-link-login" /> -->
+        
+        
+    </body>
+</page>
+
+

@@ -1,0 +1,218 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/** @var $block \Magento\Catalog\Block\Product\View */
+?>
+<?php $_product = $block->getProduct(); ?>
+
+
+<?php $buttonTitle = __('Add to Cart'); ?>
+<?php if ($_product->isSaleable()): ?>
+  <div class="box-tocart">
+    <div class="fieldset">
+      <?php if ($block->shouldRenderQuantity()  && $_product->getTypeId() !='simple'): ?>
+      <div class="field qty">
+        <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Quantity:') ?></span></label>
+        <div id="minuscartqty" class="minuscartqty">-</div>
+        <div class="control">
+          <input type="text"
+          name="qty"
+          id="qty"
+          maxlength="12"
+          value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>"
+          title="<?php /* @escapeNotVerified */ echo __('Qty') ?>" class="input-text qty"
+          data-validate="<?php echo $block->escapeHtml(json_encode($block->getQuantityValidators())) ?>"
+          />
+        </div>
+        <div id="pluscartqty" class="pluscartqty">+</div>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($block->shouldRenderQuantity()  && $_product->getTypeId() =='simple'): ?>
+    <div class="field qty">
+      <label class="label" for="qty"><span><?php /* @escapeNotVerified */ echo __('Quantity:') ?></span></label>
+
+      <div class="control">
+        <!-- <select name="qty" id="qty">
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+        </select> -->
+        <span class="simple-qty">
+
+          <input type="text" name="qty" id="qty" value="<?php /* @escapeNotVerified */ echo $block->getProductDefaultQty() * 1 ?>">
+               <span class="values-qty" style="display:none">
+         <ul>
+          <li data-val='1' class="data-val">1</li>
+          <li data-val='2' class="data-val">2</li>
+          <li data-val='3' class="data-val">3</li>
+          <li data-val='4' class="data-val">4</li>
+          <li data-val='5' class="data-val">5</li>
+          <li data-val='6' class="data-val">6</li>
+          <li data-val='7' class="data-val">7</li>
+          <li data-val='8' class="data-val">8</li>
+          <li data-val='9' class="data-val">9</li>
+          <li data-val='10' class="data-val">10</li>
+        </ul>
+
+        </span>         
+
+        </span>
+        
+        
+      </div>
+
+
+    </div>
+
+    
+  <?php endif; ?>
+  <div class="actions">
+    <button type="submit"
+    title="<?php /* @escapeNotVerified */ echo $buttonTitle ?>"
+    class="action primary tocart"
+    id="product-addtocart-button">
+    <span><?php /* @escapeNotVerified */ echo $buttonTitle ?></span>
+  </button>
+  <?php echo $block->getChildHtml('', true) ?>
+</div>
+
+<div class="subtotal" <?php if($_product->getTypeId() == 'simple' )echo 'style="display:none;"';?>><div class="subtotals-lable">Subtotal:</div><div id='subtotal-data'></div></div>
+</div>
+</div>
+
+
+
+<input type="hidden" id="hiddenprice" val="">
+<?php endif; ?>
+<?php if ($block->isRedirectToCartEnabled()) : ?>
+  <script type="text/x-magento-init">
+  {
+    "#product_addtocart_form": {
+      "Magento_Catalog/product/view/validation": {
+        "radioCheckboxClosest": ".nested"
+      }
+    }
+  }
+  </script>
+<?php else : ?>
+  <script>
+  require([
+    'jquery',
+    'mage/mage',
+    'Magento_Catalog/product/view/validation',
+    'Magento_Catalog/js/catalog-add-to-cart'
+    ], function ($) {
+      'use strict';
+
+      $('#product_addtocart_form').mage('validation', {
+        radioCheckboxClosest: '.nested',
+        submitHandler: function (form) {
+          var widget = $(form).catalogAddToCart({
+            bindSubmit: false
+          });
+
+          widget.catalogAddToCart('submitForm', $(form));
+
+          return false;
+        }
+      });
+
+      $('#minuscartqty').click(function(){
+        var carrentval =$('#qty').val();
+        if(carrentval >= 1 ){
+          carrentval = parseInt(carrentval)-1;
+          $('#qty').val(carrentval);
+          var subtotaldata=$('#hiddenprice').val();
+        changeprice(carrentval,subtotaldata);
+        }
+
+      });
+
+      $('#pluscartqty').click(function(){
+        var carrentval =$('#qty').val();
+
+        carrentval = parseInt(carrentval)+1;
+        $('#qty').val(carrentval);
+        var subtotaldata=$('#hiddenprice').val();
+        changeprice(carrentval,subtotaldata);
+
+
+
+      });
+
+      $('#subtotal-data').html($('.price').html());
+      $('#hiddenprice').val($('.price').html());
+
+      $("body").on('DOMSubtreeModified', "span", function () {
+         //$('#test').html('');
+         var str=$(this).html();
+          //console.log(str);
+         if(str.indexOf('<span class="price-label">Special Price</span>') >= 0 && str.indexOf('<span class="price">') >=0 && str.indexOf('<span class="price-container price-final_price tax weee" itemprop="offers" itemscope="" itemtype="http://schema.org/Offer">') <=0){
+          
+
+          var subtotaldata=$(this).find('.price').html();
+          $('#hiddenprice').val(subtotaldata);
+         
+          changeprice($('#qty').val(),subtotaldata);
+        }else if(str.indexOf('<span id="product-price') >= 0 && str.indexOf('<span class="price">') >=0){
+
+                var subtotaldata=$(this).find('.price').html();
+          $('#hiddenprice').val(subtotaldata);
+          changeprice($('#qty').val(),subtotaldata);
+        }
+      });
+
+
+      $('.simple-qty').click(function(){
+$('.values-qty').toggle();
+
+
+      });
+
+
+      $('.data-val').click(function(){
+
+            var dataval=$(this).attr('data-val');
+            $('#qty').val(dataval);
+            
+
+      });
+
+
+
+function changeprice(carrentval,subtotaldata){
+
+  
+        var symbol= subtotaldata.charAt(0);
+         var currprice = subtotaldata.substring(1, subtotaldata.length);
+         
+
+         var newprice=parseFloat((carrentval*currprice).toFixed(2));
+         $('#subtotal-data').html(symbol+''+newprice);
+         console.log('app/design/frontend/TemplateMonster/framework/Magento_Catalog/templates/product/view/')
+}
+
+
+    });
+
+
+</script>
+<?php endif; ?>
+
+
+
+
+

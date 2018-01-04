@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © 2016 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+$objectManager = \Magento\Framework\App\ObjectManager::getInstance();
+$request = $objectManager->get('Magento\Framework\App\Action\Context')->getRequest();
+?>
+<?php //if ($request->getFullActionName() == 'cms_index_index') :?>
+<div class="block-newsletter">
+    <div class="container">
+        <div class="row">
+            <div class="title">
+                <strong><?php /* @escapeNotVerified */echo __('Subscribe to our newsletter and receive a 10% discount off your first order') ?></strong>
+                <span class="slog-newsletter"><?php /* @escapeNotVerified */echo __('Receive the latest updates on products, trends and inspirations direct to your email') ?></span>
+            </div>
+            <div class="content">
+                <form class="form subscribe"
+                      novalidate
+                      action="<?php /* @escapeNotVerified */
+                      echo $block->getFormActionUrl() ?>"
+                      method="post"
+                      data-mage-init='{"validation": {"errorClass": "mage-error"}}'
+                      id="newsletter-validate-detail">
+                    <div class="field newsletter">
+                        <div class="control">
+                            <input
+                                name="email"
+                                type="email"
+                                id="newsletter"
+                                placeholder="<?php /* @escapeNotVerified */
+                                echo __('Email Address') ?>"
+                                data-validate="{required:true, 'validate-email':true}"/>
+                        </div>
+                        <button class="action subscribe primary" title="<?php /* @escapeNotVerified */echo __('Subscribe') ?>" type="submit">
+                            <span><?php /* @escapeNotVerified */echo __('Submit') ?></span> 
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<?php //endif; ?>

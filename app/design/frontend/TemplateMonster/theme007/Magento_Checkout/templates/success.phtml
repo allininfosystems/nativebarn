@@ -1,0 +1,33 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+?>
+<?php /** @var $block \Magento\Checkout\Block\Onepage\Success */ ?>
+<div class="checkout-success">
+    <div class="checkout-page-sec">
+    <span class="checkout-sus-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
+    <h1>Thank you for your order!</h1>
+        <?php if ($block->getOrderId()):?>
+            <p class="check-succes-dis"><?php /* @escapeNotVerified */ echo __('Your order has been placed and is being processed. When the item(s) are shipped, you will receive an<br> email with the details. You can track this order through <a href="%1.">Print Receipt</a> page.',$block->escapeHtml($block->getViewOrderUrl())) ?></p>
+            <?php if ($block->getCanViewOrder()) :?>
+                <p><?php echo __('Your order number is: %1.', sprintf('<a href="%s" class="order-number"><strong>%s</strong></a>', $block->escapeHtml($block->getViewOrderUrl()), $block->escapeHtml($block->getOrderId()))) ?></p>
+            <?php  else :?>
+                <p class="check-order-no"><?php echo __('Your order # is: <span>%1</span>.', $block->escapeHtml($block->getOrderId())) ?></p>
+            <?php endif;?>
+                
+        <?php endif;?>
+
+        <?php echo $block->getAdditionalInfoHtml() ?>
+
+        <div class="actions-toolbar">
+            <div class="primary">
+                <a class="action primary continue" href="<?php /* @escapeNotVerified */ echo $block->getUrl() ?>"><span><?php /* @escapeNotVerified */ echo __('Continue Shopping') ?></span></a>
+            </div>
+        </div>
+    </div>
+</div>

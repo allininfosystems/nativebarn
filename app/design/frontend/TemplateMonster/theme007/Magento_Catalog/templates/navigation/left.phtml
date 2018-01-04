@@ -1,0 +1,60 @@
+<?php
+/**
+ * Copyright © 2013-2017 Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+
+/**
+ * Category left navigation
+ *
+ * @var $block \Magento\Catalog\Block\Navigation
+ */
+?>
+<?php if (!$block->getCategory()) {
+    return;
+} ?>
+
+<?php $objectManager = \Magento\Framework\App\ObjectManager::getInstance();?>
+<?php $_categories = $block->getCurrentChildCategories(); ?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($_count): ?>
+    
+        
+        <div class="content subcategory-list">
+                <div class="subcat-top-sec">
+                    <h1><?php echo $block->getCategory()->getName();?></h1>
+                    <p><?php echo $block->getCategory()->getDescription();?></p>
+                </div>
+                    <ul class="subcats">
+                        <?php foreach ($_categories as $_category): ?>
+                            <?php if ($_category->getIsActive()): ?>
+
+                            <?php
+                                 $category_by_obj = $objectManager->create('Magento\Catalog\Model\Category')->load($_category->getId());
+                                 $_imgUrl = $category_by_obj->getImageUrl();
+                                 
+
+                            ?>
+                                <li class="subcat">
+                                	
+                                    <a href="<?php /* @escapeNotVerified */ echo $block->getCategoryUrl($_category) ?>">
+                                     <span class="subcat-img"><img src="<?php echo $_imgUrl?>"></span>
+                                     <span class="subcat-name"><?php echo $block->escapeHtml($_category->getName()) ?></span>
+                                    </a>
+
+                                    <!-- <span class="count"><?php /* @escapeNotVerified */ echo $_category->getProductCount() ?></span> -->
+                                </li>
+                            <?php endif; ?>
+                        <?php endforeach ?>
+                    </ul>
+                
+            
+        </div>
+    
+<?php endif; ?>
+
+
+
+
