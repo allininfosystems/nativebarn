@@ -30,3 +30,12 @@ php bin/magento cache:clean
 php bin/magento setup:static-content:deploy
 chmod -R 7777 var pub/static
 chmod -R 777 var pub/static
+ll
+php bin/magento
+php bin/magento deploy:mode:set production
+php bin/magento deploy:mode:show
+w
+su -
+w
+top
+su -

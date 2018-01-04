@@ -12269,3 +12269,21 @@ New version of deployed files: 1515061511 [] []
 [2018-01-04 10:30:11] main.CRITICAL: Broken reference: No element found with ID 'main.columns.grid-main'. [] []
 [2018-01-04 10:32:15] main.CRITICAL: Broken reference: No element found with ID 'main.columns.grid-main'. [] []
 [2018-01-04 10:32:15] main.CRITICAL: Broken reference: No element found with ID 'main.columns.grid-main'. [] []
+[2018-01-04 13:07:50] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:00] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:02] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:02] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:03] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:03] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:03] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:03] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
+[2018-01-04 13:08:03] main.WARNING: Attempt to load value of nonexistent EAV attribute '140'
+                        for entity type 'Magento\Catalog\Api\Data\ProductInterface'. [] []
